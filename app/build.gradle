@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+    defaultConfig {
+        applicationId "c63.studio.fi.modus"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+// define versions for our dependencies
+ext {
+    supportLibrary = "25.0.0"
+    junitVersion = "4.12"
+    retrofit2Version = "2.1.0"
+    okhttp3Version = "3.4.1"
+    rxJavaVersion = "1.1.8"
+    rxAndroidVersion = "1.2.1"
+    rxLifeCycleVersion = "0.7.0"
+    rxBindingVersion = "0.4.0"
+    daggerVersion = "2.7"
+    butterknifeVersion = "8.2.1"
+    multidexVersion = "1.0.1"
+    androidSupportTestVersion = "0.5"
+    guavaVersion = "20.0"
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile "junit:junit:${junitVersion}"
+    testCompile "com.android.support:support-annotations:${supportLibrary}"
+    androidTestCompile "com.android.support:support-annotations:${supportLibrary}"
+    androidTestCompile "com.android.support.test:runner:${androidSupportTestVersion}"
+    androidTestCompile "com.android.support.test:rules:${androidSupportTestVersion}"
+
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+    compile 'javax.annotation:jsr250-api:1.0'
+
+    compile "com.android.support:support-annotations:${supportLibrary}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofit2Version}"
+    compile "com.squareup.retrofit2:retrofit:${retrofit2Version}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit2Version}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttp3Version}"
+    compile "com.squareup.okhttp3:okhttp:${okhttp3Version}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttp3Version}"
+
+    compile "io.reactivex:rxjava:${rxJavaVersion}"
+    compile "io.reactivex:rxandroid:${rxAndroidVersion}"
+    compile "com.trello:rxlifecycle:${rxLifeCycleVersion}"
+    compile "com.trello:rxlifecycle-android:${rxLifeCycleVersion}"
+    compile "com.trello:rxlifecycle-components:${rxLifeCycleVersion}"
+    compile "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}"
+    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rxBindingVersion}"
+
+    compile "com.jakewharton:butterknife:${butterknifeVersion}"
+    apt "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+
+    compile "com.android.support:support-core-ui:${supportLibrary}"
+    compile "com.android.support:support-fragment:${supportLibrary}"
+    compile "com.android.support:design:${supportLibrary}"
+    compile "com.android.support:appcompat-v7:${supportLibrary}"
+    compile "com.android.support:cardview-v7:${supportLibrary}"
+    compile "com.android.support:recyclerview-v7:${supportLibrary}"
+    compile "com.android.support:percent:${supportLibrary}"
+    compile "com.android.support:support-annotations:${supportLibrary}"
+    compile "com.android.support:multidex:${multidexVersion}"
+
+    compile "com.google.guava:guava:${guavaVersion}"
+}
