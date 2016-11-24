@@ -7,6 +7,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import javax.inject.Singleton;
 
+import c63.studio.fi.modus.BuildConfig;
 import c63.studio.fi.modus.utils.GsonFactory;
 import dagger.Module;
 import dagger.Provides;
@@ -30,7 +31,7 @@ public class AuthenticationModule {
     @Singleton
     public AuthenticationController providesAccountController(@NonNull final CredentialsController credentialsController) {
         AuthenticationService authenticationService = new Retrofit.Builder()
-                .baseUrl("http://localhost:8080/api/v1")
+                .baseUrl(BuildConfig.SERVER_ENDPOINT)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create(GsonFactory.create()))
                 .client(new OkHttpClient())

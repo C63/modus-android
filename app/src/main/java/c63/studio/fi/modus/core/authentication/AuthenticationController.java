@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import java.util.NoSuchElementException;
 
+import c63.studio.fi.modus.core.authentication.Model.AccessToken;
+
 public class AuthenticationController {
     @NonNull
     private final AuthenticationService authenticationService;
@@ -20,20 +22,22 @@ public class AuthenticationController {
     public void signIn(String email, String password) throws NoSuchElementException {
         authenticationService.signIn(email, password)
                 .singleOrError()
+                .map(AccessToken::getAccessToken)
                 .subscribe(credentialsController::setToken, Throwable::printStackTrace);
     }
 
     public void signUp(String email, String password, String name) {
         authenticationService.signUp(email, password, name)
                 .singleOrError()
+                .map(AccessToken::getAccessToken)
                 .subscribe(credentialsController::setToken, Throwable::printStackTrace);
     }
 
-    public void signOut(){
+    public void signOut() {
         credentialsController.signOut();
     }
 
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         return credentialsController.hasSavedCredentials();
     }
 }

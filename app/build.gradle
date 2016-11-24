@@ -13,12 +13,14 @@ android {
         jackOptions {
             enabled true
         }
+        buildConfigField("String", "SERVER_ENDPOINT", "\"http://54.93.68.231:8080/api/v1/\"")
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
 // define versions for our dependencies
 ext {
     supportLibrary = "25.0.1"
