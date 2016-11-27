@@ -1,10 +1,11 @@
 package c63.studio.fi.modus.base;
 
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+
 public abstract class UseCase<Q extends UseCase.RequestValues, P extends UseCase.ResponseValue> {
 
     private Q mRequestValues;
-
-    private UseCaseCallback<P> mUseCaseCallback;
 
     public Q getRequestValues() {
         return mRequestValues;
@@ -14,19 +15,7 @@ public abstract class UseCase<Q extends UseCase.RequestValues, P extends UseCase
         mRequestValues = requestValues;
     }
 
-    public UseCaseCallback<P> getUseCaseCallback() {
-        return mUseCaseCallback;
-    }
-
-    public void setUseCaseCallback(UseCaseCallback<P> useCaseCallback) {
-        mUseCaseCallback = useCaseCallback;
-    }
-
-    void run() {
-        executeUseCase(mRequestValues);
-    }
-
-    protected abstract void executeUseCase(Q requestValues);
+    protected abstract Observable<P> executeUseCaseInScheduler(Scheduler scheduler);
 
     /**
      * Data passed to a request.
@@ -38,11 +27,5 @@ public abstract class UseCase<Q extends UseCase.RequestValues, P extends UseCase
      * Data received from a request.
      */
     public interface ResponseValue {
-    }
-
-    public interface UseCaseCallback<R> {
-        void onSuccess(R response);
-
-        void onError();
     }
 }
