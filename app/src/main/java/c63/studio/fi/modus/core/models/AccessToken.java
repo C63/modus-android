@@ -1,6 +1,8 @@
-package c63.studio.fi.modus.core.authentication.Model;
+package c63.studio.fi.modus.core.models;
 
-public class AccessToken {
+import java.io.Serializable;
+
+public class AccessToken implements Serializable {
 
     private final String accessToken;
 

@@ -1,28 +1,32 @@
-package c63.studio.fi.modus.core.authentication;
+package c63.studio.fi.modus.core.repositories;
 
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 
-public class CredentialsController {
+import javax.inject.Inject;
+
+public class TokenRepository {
+
     private static final String TOKEN_KEY = "TOKEN_KEY";
     private SharedPreferences preferences;
 
-    CredentialsController(SharedPreferences preferences) {
+//    @Inject
+    public TokenRepository(SharedPreferences preferences) {
         this.preferences = preferences;
     }
 
-    void signOut() {
+    public void signOut() {
         preferences.edit()
                 .remove(TOKEN_KEY)
                 .apply();
     }
 
     @Nullable
-    private String getToken() {
+    public String getToken() {
         return preferences.getString(TOKEN_KEY, null);
     }
 
-    void setToken(@Nullable String token) {
+    public void setToken(@Nullable String token) {
         if (token == null) {
             preferences.edit().remove(TOKEN_KEY).apply();
         } else {
@@ -30,14 +34,6 @@ public class CredentialsController {
                     .putString(TOKEN_KEY, token)
                     .apply();
         }
-    }
-
-    boolean hasSavedCredentials() {
-        return getToken() != null;
-    }
-
-    String getCredentials() {
-        return getToken();
     }
 
 }
